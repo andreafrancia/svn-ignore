@@ -4,7 +4,7 @@
 function svn-add-to-ignore-list () {
   local path_to_ignore="$1"
   local wc="$(dirname "$path_to_ignore")"
-  local new_ignore_list="$(concat-to-current-ignore-list "$wc" "$path_to_ignore")"
+  local new_ignore_list="$(concat-to-current-ignore-list "$wc" "$(basename "$path_to_ignore")" )"
   update-ignore-list-on "$new_ignore_list" "$wc"
 }
 
