@@ -16,17 +16,12 @@ function update-ignore-list () {
 function concat-to-current-ignore-list() {
   local working_dir="$1"
   local new_path_to_ignore="$2"
-  
-  concat-to-current-ignore-list-with-annoying-blank-line "$working_dir" "$new_path_to_ignore" | discard-empty-lines
-}
 
-function concat-to-current-ignore-list-with-annoying-blank-line() {
-  local working_dir="$1"
-  local new_path_to_ignore="$2"
-  svn-get-ignore-list "$working_dir"
-  echo "$new_path_to_ignore"
+  {
+    svn-get-ignore-list "$working_dir"
+    echo "$new_path_to_ignore"
+  } | discard-empty-lines
 }
-
 
 function svn-get-ignore-list() {
   local wc_path="${1:-"."}"
