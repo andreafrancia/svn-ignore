@@ -2,7 +2,7 @@
 
 
 function svn-add-to-ignore-list () {
-  svn propset svn:ignore . path-to-ignore
+  svn propset svn:ignore path-to-ignore .
 }
 
 function test-first-value() {
