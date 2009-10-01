@@ -8,7 +8,7 @@ function svn-add-to-ignore-list () {
 
 function svn-get-ignore-list() {
   local wc_path="$1"
-  svn propget svn:ignore "$wc_path" .
+  svn propget svn:ignore "$wc_path"
 }
 
 function test-add-first-ignore() {
