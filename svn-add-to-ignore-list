@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 function svn-add-to-ignore-list () {
   local path_to_ignore="$1"
   local wc="$(dirname "$path_to_ignore")"
@@ -85,9 +84,6 @@ function test-that-repo-is-clean() {
   assertEquals "" "$ignore"
 }
 
-
-
-
 function read-ignore-prop() {
   local wc="$1"
   svn propget svn:ignore "$wc"
@@ -101,4 +97,8 @@ function setup-test-repo-and-wc() {
   svn co file://$(pwd)/repo wc >/dev/null
 }
 
-source bashunit.bash
+if [ "$1" == "--test-me" ]; then
+  source bashunit.bash
+elif
+  svn-add-to-ignore-list "$1"
+fi    
