@@ -68,8 +68,8 @@ function read-ignore-prop() {
 function setup-test-repo-and-wc() {
   rm -Rf repo
   rm -Rf wc
-  svnadmin create repo
-  svn co file://$(pwd)/repo wc
+  svnadmin create repo >/dev/null
+  svn co file://$(pwd)/repo wc >/dev/null
 }
 
 source bashunit.bash
