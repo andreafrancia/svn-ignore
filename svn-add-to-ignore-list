@@ -4,7 +4,7 @@
 function svn-add-to-ignore-list () {
   local path_to_ignore="$1"
   local wc="$(dirname "$path_to_ignore")"
-  local new_ignore_list="$(concat-to-current-ignore-list "$path_to_ignore")"
+  local new_ignore_list="$(concat-to-current-ignore-list "$wc" "$path_to_ignore")"
   update-ignore-list "$new_ignore_list"
 }
 
@@ -14,12 +14,16 @@ function update-ignore-list () {
 }
 
 function concat-to-current-ignore-list() {
-  concat-to-current-ignore-list-with-annoying-blank-line "$1" | discard-empty-lines
+  local working_dir="$1"
+  local new_path_to_ignore="$2"
+  
+  concat-to-current-ignore-list-with-annoying-blank-line "$working_dir" "$new_path_to_ignore" | discard-empty-lines
 }
 
 function concat-to-current-ignore-list-with-annoying-blank-line() {
-  local new_path_to_ignore="$1"
-  svn-get-ignore-list
+  local working_dir="$1"
+  local new_path_to_ignore="$2"
+  svn-get-ignore-list "$working_dir"
   echo "$new_path_to_ignore"
 }
 
