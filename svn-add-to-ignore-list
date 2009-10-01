@@ -17,7 +17,7 @@ function test-add-first-ignore() {
   assertEquals "path-to-ignore" "$(read-ignore-prop wc)"
 }
 
-function test-append-second-ignore() {
+function dont_test-append-second-ignore() {
   setup-test-repo-and-wc
   
   (
@@ -30,6 +30,16 @@ function test-append-second-ignore() {
 second-path-to-ignore" "$(read-ignore-prop wc)"
 }
 
+
+function test-get-current-ignore-list() {
+  setup-test-repo-and-wc
+  (
+    cd wc
+    svn-add-to-ignore-list my-path-to-ignore
+  )
+  
+  assertEquals "my-path-to-ignore" "$(svn-get-ignore-list wc)"
+}
 
 
 function test-that-repo-is-clean() {
