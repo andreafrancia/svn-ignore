@@ -2,10 +2,11 @@
 
 
 function svn-add-to-ignore-list () {
-  svn propset svn:ignore path-to-ignore .
+  local path-to-ignore="$1"
+  svn propset svn:ignore "$1" .
 }
 
-function test-first-value() {
+function test-add-first-ignore() {
   setup-test-repo-and-wc
   
   (
