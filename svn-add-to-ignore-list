@@ -32,13 +32,21 @@ function discard-empty-lines() {
   sed '/^\s*$/d'
 }
 
-function test-add-first-ignore() {
+function test-add-first-ignore-in-cur-dir() {
   setup-test-repo-and-wc
   
   (
     cd wc
     svn-add-to-ignore-list path-to-ignore
   )
+  
+  assertEquals "path-to-ignore" "$(read-ignore-prop wc)"
+}
+
+function test-add-first-ignore-in-other-dir() {
+  setup-test-repo-and-wc
+  
+  svn-add-to-ignore-list wc/path-to-ignore
   
   assertEquals "path-to-ignore" "$(read-ignore-prop wc)"
 }
