@@ -22,7 +22,7 @@ function test-add-first-ignore() {
   assertEquals "path-to-ignore" "$(read-ignore-prop wc)"
 }
 
-function dont_test-append-second-ignore() {
+function test-append-second-ignore() {
   setup-test-repo-and-wc
   
   (
