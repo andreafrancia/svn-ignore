@@ -3,7 +3,13 @@
 
 function svn-add-to-ignore-list () {
   local path_to_ignore="$1"
-  { svn-get-ignore-list; echo "$path_to_ignore"; } |  discard-empty-lines | svn propset svn:ignore -F- . >/dev/null
+  concat-to-current-ignore-list | discard-empty-lines | svn propset svn:ignore -F- . >/dev/null
+}
+
+function concat-to-current-ignore-list() {
+  local new_path_to_ignore="$1"
+  svn-get-ignore-list
+  echo "$new_path_to_ignore"
 }
 
 
