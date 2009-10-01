@@ -5,12 +5,13 @@ function svn-add-to-ignore-list () {
   local path_to_ignore="$1"
   local wc="$(dirname "$path_to_ignore")"
   local new_ignore_list="$(concat-to-current-ignore-list "$wc" "$path_to_ignore")"
-  update-ignore-list "$new_ignore_list"
+  update-ignore-list-on "$new_ignore_list" "$wc"
 }
 
 function update-ignore-list () {
   local ignore_list="$1"
-  svn propset svn:ignore "$ignore_list" . >/dev/null
+  local working_copy="$2"
+  svn propset svn:ignore "$ignore_list" "$working_copy" >/dev/null
 }
 
 function concat-to-current-ignore-list() {
