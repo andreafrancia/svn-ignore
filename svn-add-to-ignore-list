@@ -1,0 +1,46 @@
+#!/bin/bash
+
+
+function svn-add-to-ignore-list () {
+  false
+}
+
+function test-first-value() {
+  setup-test-repo-and-wc
+  
+  {
+    cd wc
+    svn-add-to-ignore-list path-to-ignore
+  }
+  
+  assertEquals "path-to-ignore" "$(read-ignore-prop wc)"
+}
+
+
+
+
+function test-that-repo-is-clean() {
+  setup-test-repo-and-wc
+
+  local ignore="$(read-ignore-prop wc)"
+  
+  assertEquals "" "$ignore"
+}
+
+
+
+
+function read-ignore-prop() {
+  local wc="$1"
+  svn propget svn:ignore "$wc"
+}
+
+
+function setup-test-repo-and-wc() {
+  rm -Rf repo
+  rm -Rf wc
+  svnadmin create repo
+  svn co file://$(pwd)/repo wc
+}
+
+source bashunit.bash
