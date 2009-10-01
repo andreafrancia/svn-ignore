@@ -3,13 +3,17 @@
 
 function svn-add-to-ignore-list () {
   local path_to_ignore="$1"
-  { svn-get-ignore-list; echo "$path_to_ignore"; } | sed '/^\s*$/d' | svn propset svn:ignore -F- . >/dev/null
+  { svn-get-ignore-list; echo "$path_to_ignore"; } |  discard-empty-lines | svn propset svn:ignore -F- . >/dev/null
 }
 
 
 function svn-get-ignore-list() {
   local wc_path="${1:-"."}"
   svn propget svn:ignore "$wc_path"
+}
+
+function discard-empty-lines() {
+  sed '/^\s*$/d'
 }
 
 function test-add-first-ignore() {
