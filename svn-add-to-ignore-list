@@ -8,10 +8,10 @@ function svn-add-to-ignore-list () {
 function test-first-value() {
   setup-test-repo-and-wc
   
-  {
+  (
     cd wc
     svn-add-to-ignore-list path-to-ignore
-  }
+  )
   
   assertEquals "path-to-ignore" "$(read-ignore-prop wc)"
 }
