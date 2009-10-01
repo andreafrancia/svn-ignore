@@ -8,7 +8,7 @@ function svn-add-to-ignore-list () {
   update-ignore-list-on "$new_ignore_list" "$wc"
 }
 
-function update-ignore-list () {
+function update-ignore-list-on () {
   local ignore_list="$1"
   local working_copy="$2"
   svn propset svn:ignore "$ignore_list" "$working_copy" >/dev/null
