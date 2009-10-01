@@ -17,6 +17,18 @@ function test-add-first-ignore() {
   assertEquals "path-to-ignore" "$(read-ignore-prop wc)"
 }
 
+function test-append-second-ignore() {
+  setup-test-repo-and-wc
+  
+  (
+    cd wc
+    svn-add-to-ignore-list first-path-to-ignore
+    svn-add-to-ignore-list second-path-to-ignore
+  )
+  
+  assertEquals "first-path-to-ignore
+second-path-to-ignore" "$(read-ignore-prop wc)"
+}
 
 
 
