@@ -3,7 +3,7 @@
 
 function svn-add-to-ignore-list () {
   local path_to_ignore="$1"
-  { echo "$(svn-get-ignore-list .)"; echo "$path_to_ignore"; } | svn propset svn:ignore -F- . >/dev/null
+  { echo -n "$(svn-get-ignore-list .)"; echo "$path_to_ignore"; } | svn propset svn:ignore -F- . >/dev/null
 }
 
 
