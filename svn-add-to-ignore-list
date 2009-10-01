@@ -2,8 +2,8 @@
 
 
 function svn-add-to-ignore-list () {
-  local path-to-ignore="$1"
-  svn propset svn:ignore "$1" .
+  local path_to_ignore="$1"
+  svn propset svn:ignore "$path_to_ignore" .
 }
 
 function test-add-first-ignore() {
