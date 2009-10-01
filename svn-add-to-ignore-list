@@ -99,6 +99,6 @@ function setup-test-repo-and-wc() {
 
 if [ "$1" == "--test-me" ]; then
   source bashunit.bash
-elif
+else
   svn-add-to-ignore-list "$1"
-fi    
+fi
