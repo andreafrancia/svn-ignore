@@ -6,6 +6,11 @@ function svn-add-to-ignore-list () {
   svn propset svn:ignore "$path_to_ignore" .
 }
 
+function svn-get-ignore-list() {
+  local wc_path="$1"
+  false;
+}
+
 function test-add-first-ignore() {
   setup-test-repo-and-wc
   
