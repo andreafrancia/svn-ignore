@@ -1,8 +1,9 @@
 #!/bin/bash
 
+user_message="${1:-""}"
 test_results="$(./run-tests 2>&1)";
 success_rate="$(echo "$test_results" | tail -1)"
-message="$success_rate
+message="$user_message: $success_rate
 
 $test_results"
 
