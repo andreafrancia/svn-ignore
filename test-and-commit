@@ -5,4 +5,7 @@ success_rate="$(echo "$test_results" | tail -1)"
 message="$success_rate
 
 $test_results"
+
+echo "Commiting with message:"
+echo "$message"
 hg commit --addremove --message "$message"
