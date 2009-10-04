@@ -1,0 +1,75 @@
+#!/bin/bash
+
+
+function svn-add-to-ignore-list () {
+  path_to_ignore="$1"
+  { svn-get-ignore-list .; echo "$path_to_ignore"; } | svn propset svn:ignore "$ignore_list" . >/dev/null
+}
+
+
+function svn-get-ignore-list() {
+  local wc_path="$1"
+  svn propget svn:ignore "$wc_path"
+}
+
+function test-add-first-ignore() {
+  setup-test-repo-and-wc
+  
+  (
+    cd wc
+    svn-add-to-ignore-list path-to-ignore
+  )
+  
+  assertEquals "path-to-ignore" "$(read-ignore-prop wc)"
+}
+
+function test-append-second-ignore() {
+  setup-test-repo-and-wc
+  
+  (
+    cd wc
+    svn-add-to-ignore-list first-path-to-ignore
+    svn-add-to-ignore-list second-path-to-ignore
+  )
+  
+  assertEquals "first-path-to-ignore
+second-path-to-ignore" "$(read-ignore-prop wc)"
+}
+
+
+function test-get-current-ignore-list() {
+  setup-test-repo-and-wc
+  (
+    cd wc
+    svn-add-to-ignore-list my-path-to-ignore
+  )
+  
+  assertEquals "my-path-to-ignore" "$(svn-get-ignore-list wc)"
+}
+
+
+function test-that-repo-is-clean() {
+  setup-test-repo-and-wc
+
+  local ignore="$(read-ignore-prop wc)"
+  
+  assertEquals "" "$ignore"
+}
+
+
+
+
+function read-ignore-prop() {
+  local wc="$1"
+  svn propget svn:ignore "$wc"
+}
+
+
+function setup-test-repo-and-wc() {
+  rm -Rf repo
+  rm -Rf wc
+  svnadmin create repo >/dev/null
+  svn co file://$(pwd)/repo wc >/dev/null
+}
+
+source bashunit.bash

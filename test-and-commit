@@ -1,0 +1,8 @@
+#!/bin/bash
+
+test_results="$(./run-tests 2>&1)";
+success_rate="$(echo "$test_results" | tail -1)"
+message="$success_rate
+
+$test_results"
+hg commit --addremove --message "$message"
