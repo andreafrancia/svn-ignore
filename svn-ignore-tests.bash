@@ -11,7 +11,7 @@ function test-add-first-ignore-in-cur-dir() {
     svn-ignore-add path-to-ignore
   )
   
-  assertEquals "path-to-ignore" "$(read-ignore-prop wc)"
+  assertEquals "path-to-ignore" "$(svn-ignore-list wc)"
 }
 
 function test-add-first-ignore-in-other-dir() {
@@ -19,7 +19,7 @@ function test-add-first-ignore-in-other-dir() {
   
   svn-ignore-add wc/path-to-ignore
   
-  assertEquals "path-to-ignore" "$(read-ignore-prop wc)"
+  assertEquals "path-to-ignore" "$(svn-ignore-list wc)"
 }
 
 function test-append-second-ignore() {
@@ -32,7 +32,7 @@ function test-append-second-ignore() {
   )
   
   assertEquals "first-path-to-ignore
-second-path-to-ignore" "$(read-ignore-prop wc)"
+second-path-to-ignore" "$(svn-ignore-list wc)"
 }
 
 function test-append-second-ignore-on-other-dir() {
@@ -42,7 +42,7 @@ function test-append-second-ignore-on-other-dir() {
   svn-ignore-add wc/second-path-to-ignore
   
   assertEquals "first-path-to-ignore
-second-path-to-ignore" "$(read-ignore-prop wc)"
+second-path-to-ignore" "$(svn-ignore-list wc)"
 }
 
 function test-get-current-ignore-list() {
@@ -52,21 +52,16 @@ function test-get-current-ignore-list() {
     svn-ignore-add my-path-to-ignore
   )
   
-  assertEquals "my-path-to-ignore" "$(svn-get-ignore-list wc)"
+  assertEquals "my-path-to-ignore" "$(svn-ignore-list wc)"
 }
 
 
 function test-that-repo-is-clean() {
   setup-test-repo-and-wc
 
-  local ignore="$(read-ignore-prop wc)"
+  local ignore="$(svn-ignore-list wc)"
   
   assertEquals "" "$ignore"
-}
-
-function read-ignore-prop() {
-  local wc="$1"
-  svn propget svn:ignore "$wc"
 }
 
 function setup-test-repo-and-wc() {

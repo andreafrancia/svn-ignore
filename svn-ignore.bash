@@ -21,12 +21,12 @@ function concat-to-current-ignore-list() {
   local new_path_to_ignore="$2"
 
   {
-    svn-get-ignore-list "$working_dir"
+    svn-ignore-list "$working_dir"
     echo "$new_path_to_ignore"
   } | discard-empty-lines
 }
 
-function svn-get-ignore-list() {
+function svn-ignore-list() {
   local wc_path="$1"
   svn propget svn:ignore "$wc_path"
 }
