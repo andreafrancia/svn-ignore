@@ -13,10 +13,10 @@ function svn-ignore-add-to-dir() {
   local working_dir="$2"
   local cur_ignore_list="$(svn-ignore-list "$working_dir")"
   local new_ignore_list="$(concat-ignore-lists "$cur_ignore_list" "$path_to_ignore" )"
-  svn-ignore-udpate-list "$new_ignore_list" "$working_dir"
+  svn-ignore-update-list "$new_ignore_list" "$working_dir"
 }
 
-function svn-ignore-udpate-list() {
+function svn-ignore-update-list() {
   local ignore_list="$1"
   local working_copy="${2:-"."}"
   svn propset svn:ignore "$ignore_list" "$working_copy" >/dev/null
@@ -38,8 +38,5 @@ function svn-ignore-list() {
   svn propget svn:ignore "$wc_path"
 }
 
-function discard-empty-lines() {
-  sed '/^\s*$/d'
-}
 
 
