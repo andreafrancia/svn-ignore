@@ -5,9 +5,14 @@ set -o nounset
 
 function svn-ignore-add() {
   local path_to_ignore="$1"
-  local wc="$(dirname "$path_to_ignore")"
-  local new_ignore_list="$(concat-to-current-ignore-list "$wc" "$(basename "$path_to_ignore")" )"
-  update-ignore-list-on "$new_ignore_list" "$wc"
+  svn-ignore-add-to-dir "$(basename "$path_to_ignore")" "$(dirname "$path_to_ignore")"
+}
+
+function svn-ignore-add-to-dir() {
+  local path_to_ignore="$1"
+  local working_dir="$2"
+  local new_ignore_list="$(concat-to-current-ignore-list "$working_dir" "$path_to_ignore" )"
+  update-ignore-list-on "$new_ignore_list" "$working_dir"
 }
 
 function update-ignore-list-on () {
