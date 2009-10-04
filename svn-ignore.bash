@@ -25,11 +25,12 @@ function svn-ignore-udpate-list() {
 function concat-ignore-lists() {
   local cur_ignore_list="$1"
   local new_ignore_item="$2"
+  local newline="
+"
 
-  {
-    echo "$cur_ignore_list"
-    echo "$new_ignore_item"
-  } | discard-empty-lines
+  echo -n "$cur_ignore_list"
+  echo -n "${cur_ignore_list:+$newline}"
+  echo -n "$new_ignore_item"  
 }
 
 function svn-ignore-list() {
