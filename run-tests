@@ -1,0 +1,4 @@
+#!/bin/bash
+source "$(dirname $0)"/svn-ignore.bash
+source svn-ignore-tests.bash
+source bashunit.bash
