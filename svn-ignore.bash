@@ -29,7 +29,7 @@ function concat-ignore-lists() {
   {
     echo "$cur_ignore_list"
     echo "$new_ignore_item"
-  } | discard-empty-lines
+  }
 }
 
 function svn-ignore-list() {
